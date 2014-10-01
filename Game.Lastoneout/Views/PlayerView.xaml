@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Game.Lastoneout.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="300">
     <UserControl.Resources>
@@ -56,16 +57,52 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard  x:Key="ScaleUpStoryboard">
+            <!--<DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)" To="1" From="0" Duration="0:0:02" />-->
+            <DoubleAnimation Storyboard.TargetProperty="(StackPanel.Opacity)"
+                                     From="0" To="1" FillBehavior="HoldEnd"
+                                     Duration="00:00:01"/>
+        </Storyboard>
+        <Storyboard x:Key="ScaleDownStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="(StackPanel.Opacity)"
+                                     To="0" From="1" FillBehavior="HoldEnd"
+                                     Duration="00:00:01"/>
+        </Storyboard>
+        <Style TargetType="StackPanel" x:Key="CollapsingPanelStyle" >
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsActive}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard BeginStoryboardName="ScaleUpBegin"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ScaleDownBegin"></RemoveStoryboard>
+                        <BeginStoryboard Name="ScaleUpBegin"  Storyboard="{StaticResource ScaleUpStoryboard}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsActive}" Value="False">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard BeginStoryboardName="ScaleUpBegin"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ScaleDownBegin"></RemoveStoryboard>
+                        <BeginStoryboard Name="ScaleDownBegin" Storyboard="{StaticResource ScaleDownStoryboard}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <converters:BooleanToVisibilityConverter  x:Key="BoolToVis" True="Visible" False="Collapsed" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="160"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock  Text="{Binding PlayerName}" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" MaxWidth="150"></TextBlock>
         <Image Grid.Row="1" Source="{Binding HumanImage}"></Image>
-        <StackPanel Grid.Row="2">
+        <StackPanel Grid.Row="2" Style="{StaticResource CollapsingPanelStyle}" Opacity="0">
+            <TextBlock Text="Please choose number of coins to grab" MaxWidth="140" MaxHeight="60" TextWrapping="Wrap"  Margin="10"></TextBlock>
             <ListBox Height="32" SelectedIndex="{Binding SelectedInd}" SelectionMode="Single" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

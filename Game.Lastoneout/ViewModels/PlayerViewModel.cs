@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.Lastoneout.Events;
 using Game.Lastoneout.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Game.Lastoneout.ViewModels
 {
@@ -13,8 +15,8 @@ namespace Game.Lastoneout.ViewModels
     {
         public DelegateCommand<object> ButtonListCommand { get; private set; }
         public DelegateCommand<object> EndTurnCommand { get; private set; }
-        
-        public PlayerViewModel(IGameService gameService)
+
+        public PlayerViewModel(IGameService gameService, IEventAggregator eventAggregator)
         {
             SelectedInd = -1;
 
@@ -28,6 +30,7 @@ namespace Game.Lastoneout.ViewModels
                 gameService.EndTurn(_step);
                 SelectedInd = -1;
                 SetStep(0);
+                eventAggregator.GetEvent<EndTurnEvent>().Publish(this.GetHashCode());
             }, (x) => _step > 0 && _step <= 3);
 
         }
@@ -57,7 +60,8 @@ namespace Game.Lastoneout.ViewModels
         public bool IsActive
         {
             get { return _isActive; }
-            set { SetProperty(ref _isActive, value); }
+            set
+            { SetProperty(ref _isActive, value); }
         }
     }
 }

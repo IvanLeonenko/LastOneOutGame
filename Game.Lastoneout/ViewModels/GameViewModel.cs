@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Drawing.Text;
 using System.Threading.Tasks;
+using Game.Lastoneout.Events;
 using Game.Lastoneout.Helpers;
 using Game.Lastoneout.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Game.Lastoneout.ViewModels
 {
@@ -49,15 +51,22 @@ namespace Game.Lastoneout.ViewModels
 
         private readonly IGameService _gameService;
 
-        public GameViewModel(IGameService gameService)
+        public GameViewModel(IGameService gameService, IEventAggregator eventAggregator)
         {
             _gameService = gameService;
-            Player1 = new PlayerViewModel(gameService);
-            Player2 = new PlayerViewModel(gameService);
+            Player1 = new PlayerViewModel(gameService, eventAggregator);
+            Player2 = new PlayerViewModel(gameService, eventAggregator);
+
+            eventAggregator.GetEvent<EndTurnEvent>().Subscribe(hash =>
+            {
+                Player1.IsActive = !Player1.IsActive;
+                Player2.IsActive = !Player2.IsActive;
+            }
+            , true);
 
             _gameService.Started += async (sender, args) =>
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(1500));
+                await Task.Delay(TimeSpan.FromMilliseconds(2500));
                 var whoIsFirst = RandomHelper.FlipACoin();
                 Player1.IsActive = whoIsFirst;
                 Player2.IsActive = !whoIsFirst;
