@@ -23,11 +23,11 @@
             <TextBlock Foreground="#FF6F69">Player #1:</TextBlock>
             <TextBox x:Name="Player1Name" Width="120" Height="30" FontSize="20" Margin="10, 0,0,0"  Text="{Binding Player1, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVisInverted}}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding IsAiPlayerGame, Converter={StaticResource BoolToVisInverted}}">
             <TextBlock Foreground="#FF6F69">Player #2:</TextBlock>
             <TextBox  Width="120" Margin="10, 0,0,0" x:Name="Player2Name" Height="30" FontSize="20" Text="{Binding Player2, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVis}}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding IsAiPlayerGame, Converter={StaticResource BoolToVis}}">
             <TextBlock Foreground="#FF6F69">Player #2:</TextBlock>
             <ComboBox SelectedItem="{Binding SelectedAiPlayer}" ItemsSource="{Binding AiPlayersValues}"></ComboBox>
         </StackPanel>

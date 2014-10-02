@@ -28,10 +28,10 @@ namespace Game.Shell.ViewModels
             // Initialize this ViewModel's commands.
             ExitCommand = new DelegateCommand(Application.Current.Shutdown);
             PvpToMainCommand = new DelegateCommand(() => { ResetStates(); PvpToMain = true; });
-            GoToPvpcSetupCommand = new DelegateCommand(() => { ResetStates(); IsAiPlayer = true; GoToPvpSetup = true; });
+            GoToPvpcSetupCommand = new DelegateCommand(() => { ResetStates(); IsAiPlayerGame = true; GoToPvpSetup = true; });
             GoToPvpSetupCommand = new DelegateCommand(() => { ResetStates(); GoToPvpSetup = true; });
             eventAggregator.GetEvent<ReturnEvent>().Subscribe(x => { ResetStates(); GameToStart = true; });
-            StartCommand = new DelegateCommand<object>(StartAction, x => (!string.IsNullOrEmpty(Player1) && !string.IsNullOrEmpty(Player2) && !IsAiPlayer) || IsAiPlayer);
+            StartCommand = new DelegateCommand<object>(StartAction, x => (!string.IsNullOrEmpty(Player1) && !string.IsNullOrEmpty(Player2) && !IsAiPlayerGame) || IsAiPlayerGame);
             
             userInfo = userInfoService;
             Player1 = userInfoService.GetUserName();
@@ -96,7 +96,7 @@ namespace Game.Shell.ViewModels
         private void StartAction(object commandArg)
         {
             var gameService = ServiceLocator.Current.GetInstance<IGameService>();
-            if (IsAiPlayer)
+            if (IsAiPlayerGame)
                 gameService.Start(Player1, userInfo.GetUserProfileImagePath(), SelectedAiPlayer);
             else
                 gameService.Start(Player1, Player2);
@@ -122,13 +122,13 @@ namespace Game.Shell.ViewModels
             set { SetProperty(ref _goToPvpSetup, value); }
         }
 
-        private bool _isAiPlayer;
-        public bool IsAiPlayer
+        private bool _isAiPlayerGame;
+        public bool IsAiPlayerGame
         {
-            get { return _isAiPlayer; }
+            get { return _isAiPlayerGame; }
             set
             {
-                SetProperty(ref _isAiPlayer, value);
+                SetProperty(ref _isAiPlayerGame, value);
                 StartCommand.RaiseCanExecuteChanged();
             }
         }

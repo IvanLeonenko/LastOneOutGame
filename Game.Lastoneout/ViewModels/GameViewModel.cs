@@ -72,29 +72,31 @@ namespace Game.Lastoneout.ViewModels
             Player1 = new PlayerViewModel(gameService, eventAggregator);
             Player2 = new PlayerViewModel(gameService, eventAggregator);
 
-            eventAggregator.GetEvent<EndTurnEvent>().Subscribe(hash =>
+            eventAggregator.GetEvent<EndTurnEvent>().Subscribe(async hash =>
             {
                 if (!GameActive)
                     return;
                 Player1.IsActive = !Player1.IsActive;
                 Player2.IsActive = !Player2.IsActive;
+                await AiTurn();
             }
             , true);
 
             _gameService.Started += async (sender, args) =>
             {
                 GameOver = false;
+                Player2.IsAiPlayer = _gameService.IsAiGame;
                 await ChoosingPlayerDelay();
                 var whoIsFirst = RandomHelper.FlipACoin();
                 Player1.IsActive = whoIsFirst;
                 Player2.IsActive = !whoIsFirst;
                 GameActive = true;
+                await AiTurn();
             };
 
             _gameService.Updated += (sender, args) =>
             {
-                Player1.PlayerName = gameService.Player1Name;
-                Player2.PlayerName = gameService.Player2Name;
+                UpdatePlayersData();
                 Count = _gameService.GetCount();
             };
 
@@ -103,16 +105,34 @@ namespace Game.Lastoneout.ViewModels
                 GameActive = false;
                 var winner = Player2.IsActive ? Player1 : Player2;
                 GameOverText = string.Format("Congratulations {0}!\nYou've just won!", winner.PlayerName);
+                Player1.IsActive = false;
+                Player2.IsActive = false;
                 GameOver = true;
-                Player1.IsActive = Player2.IsActive = false;
             };
 
             RestartCommand = new DelegateCommand(() => _gameService.Reset());
             ReturnCommand = new DelegateCommand(() => eventAggregator.GetEvent<ReturnEvent>().Publish(null));
 
+            UpdatePlayersData();
+        }
+
+        private async Task AiTurn()
+        {
+            if (_gameService.IsAiGame && _count > 0)
+            {
+                await Task.Delay(_gameService.GetAiPlayerDelay());
+                if (_gameService.EndTurn(_gameService.AiPlayerStep(_count)))
+                {
+                    Player1.IsActive = !Player1.IsActive;
+                    Player2.IsActive = !Player2.IsActive;
+                }
+            }
+        }
+
+        private void UpdatePlayersData()
+        {
             Player1.PlayerName = _gameService.Player1Name;
             Player2.PlayerName = _gameService.Player2Name;
-            
         }
 
         private async Task ChoosingPlayerDelay()

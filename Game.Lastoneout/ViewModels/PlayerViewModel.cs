@@ -32,6 +32,14 @@ namespace Game.Lastoneout.ViewModels
 
         }
 
+
+        private bool _isAiPlayer;
+        public bool IsAiPlayer
+        {
+            get { return _isAiPlayer; }
+            set { SetProperty(ref _isAiPlayer, value); }
+        }
+
         private int _step;
         private void SetStep(int step)
         {
@@ -44,6 +52,13 @@ namespace Game.Lastoneout.ViewModels
         {
             get { return _playerName; }
             set { SetProperty(ref _playerName, value); }
+        }
+
+        private string _imageSource;
+        public string ImageSource
+        {
+            get { return _imageSource; }
+            set { SetProperty(ref _imageSource, value); }
         }
 
         private int _selectedInd;

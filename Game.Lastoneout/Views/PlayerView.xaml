@@ -22,18 +22,23 @@
         <TextBlock  Text="{Binding PlayerName}" Style="{DynamicResource PlayerNameTextBlockStyle}"></TextBlock>
         <Image Grid.Row="1" Source="{Binding HumanImage}"></Image>
         <StackPanel Grid.Row="2" Style="{StaticResource CollapsingPanelStyle}" MaxHeight="0">
-            <TextBlock Text="Please choose number of coins to grab" MaxWidth="140" MaxHeight="60" TextWrapping="Wrap"  Margin="10"></TextBlock>
-            <ListBox Height="32" SelectedIndex="{Binding SelectedInd}" SelectionMode="Single" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBoxItem Width="30" Height="30" Content="1"/>
-                <ListBoxItem Width="30" Height="30" Content="2"/>
-                <ListBoxItem Width="30" Height="30" Content="3"/>
-            </ListBox>
-            <Button Width="80" Height="40" Margin="0, 20, 0, 0" Content="End turn" Command="{Binding EndTurnCommand}"></Button>
+            <StackPanel Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVisInverted}}">
+                <TextBlock Text="Please choose number of coins to grab" MaxWidth="140" MaxHeight="60" TextWrapping="Wrap"  Margin="10"></TextBlock>
+                <ListBox Height="32" SelectedIndex="{Binding SelectedInd}" SelectionMode="Single" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBoxItem Width="30" Height="30" Content="1"/>
+                    <ListBoxItem Width="30" Height="30" Content="2"/>
+                    <ListBoxItem Width="30" Height="30" Content="3"/>
+                </ListBox>
+                <Button Width="80" Height="40" Margin="0, 20, 0, 0" Content="End turn" Command="{Binding EndTurnCommand}"></Button>
+            </StackPanel>
+            <StackPanel Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVis}}">
+                <TextBlock Text="Thinking...."></TextBlock>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -65,9 +65,10 @@ namespace Game.Lastoneout.Services
         public void Start(string playerName, string playerImageSource, AiPlayers aiPlayer)
         {
             Player1Name = playerName;
+            _aiPlayer = _aiPlayerProvider.GetAiPlayer(aiPlayer);
+            Player2Name = _aiPlayer.Name;
             _playerImageSource = playerImageSource;
             IsAiGame = true;
-            _aiPlayer = _aiPlayerProvider.GetAiPlayer(aiPlayer);
             Reset();
         }
 
