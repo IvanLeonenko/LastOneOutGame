@@ -10,6 +10,7 @@ namespace Game.Shell.ViewModels
 {
     public class ShellViewModel : BindableBase
     {
+        public DelegateCommand PvpToMainCommand { get; private set; }
         public DelegateCommand GoToPvpSetupCommand { get; private set; }
         public DelegateCommand ExitCommand { get; private set; }
         public DelegateCommand<object> StartCommand { get; private set; }
@@ -18,7 +19,8 @@ namespace Game.Shell.ViewModels
         {
             // Initialize this ViewModel's commands.
             ExitCommand = new DelegateCommand(Application.Current.Shutdown);
-            GoToPvpSetupCommand = new DelegateCommand(() => GoToPvpSetup = true);
+            PvpToMainCommand = new DelegateCommand(() => { PvpToMain = true; GoToPvpSetup = false; });
+            GoToPvpSetupCommand = new DelegateCommand(() => { GoToPvpSetup = true; PvpToMain = false; });
             StartCommand = new DelegateCommand<object>(StartAction, x => !string.IsNullOrEmpty(Player1) && !string.IsNullOrEmpty(Player2));
 
             Player1 = userInfoService.GetUserName();
@@ -74,13 +76,21 @@ namespace Game.Shell.ViewModels
 
         #endregion
 
-        #region Pvp click
+        #region Navigation states
         private bool _goToPvpSetup;
 
         public bool GoToPvpSetup
         {
             get { return _goToPvpSetup; }
             set { SetProperty(ref _goToPvpSetup, value); }
+        }
+
+        private bool _pvpToMain;
+
+        public bool PvpToMain
+        {
+            get { return _pvpToMain; }
+            set { SetProperty(ref _pvpToMain, value); }
         }
         #endregion
     }

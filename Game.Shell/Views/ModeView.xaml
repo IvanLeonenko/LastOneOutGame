@@ -13,6 +13,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="210"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF6F69">Welcome to the "Last one out" game!</TextBlock>

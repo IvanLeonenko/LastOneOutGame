@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Game.Lastoneout.Events;
 using Game.Lastoneout.Services;
 using Microsoft.Practices.Prism.Commands;
@@ -27,7 +23,8 @@ namespace Game.Lastoneout.ViewModels
 
             EndTurnCommand = new DelegateCommand<object>((x) =>
             {
-                gameService.EndTurn(_step);
+                if (!gameService.EndTurn(_step)) 
+                    return;
                 SelectedInd = -1;
                 SetStep(0);
                 eventAggregator.GetEvent<EndTurnEvent>().Publish(this.GetHashCode());
@@ -60,8 +57,7 @@ namespace Game.Lastoneout.ViewModels
         public bool IsActive
         {
             get { return _isActive; }
-            set
-            { SetProperty(ref _isActive, value); }
+            set { SetProperty(ref _isActive, value); }
         }
     }
 }

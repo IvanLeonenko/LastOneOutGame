@@ -7,66 +7,11 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="===Game===" Height="640" Width="800" Background="Transparent" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen" UseLayoutRounding="True">
     <Window.Resources>
-        <Storyboard x:Key="GoToPvpSetupStoryboard">
-            <DoubleAnimation  Duration="00:00:00.25" From="1" To="0" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut"></QuadraticEase>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00.25" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                    <DiscreteObjectKeyFrame.Value>
-                        <Visibility>Collapsed</Visibility>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="VisibleStoryboard">
-            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00.25" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                    <DiscreteObjectKeyFrame.Value>
-                        <Visibility>Visible</Visibility>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimation BeginTime="00:00:00.25"  Duration="00:00:00.25" From="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseIn"></QuadraticEase>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-        <Style TargetType="UserControl" x:Key="HideUIElement" >
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding GoToPvpSetup}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="UserControl" x:Key="ShowUIElement" >
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding GoToPvpSetup}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource VisibleStoryboard}"/>
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding GoToStart}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="Grid" x:Key="ShowGameDesk" >
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding GoToStart}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource VisibleStoryboard}"/>
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Game.Shell;component/Resources/NavigationAnimation.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Border BorderThickness="2" BorderBrush="#96CEB4" CornerRadius="8" Background="#FFEEAD" Margin="18"
             MouseDown="UIElement_OnMouseDown">
@@ -136,8 +81,8 @@
                             HorizontalContentAlignment="Stretch" />
                 </Border>
             </Grid>
-            <views:ModeView Style="{StaticResource HideUIElement}" x:Name="ChooseModeView" Visibility="Visible"></views:ModeView>
-            <views:PvpSetupView Style="{StaticResource ShowUIElement}" Visibility="Collapsed"></views:PvpSetupView>
+            <views:ModeView Style="{StaticResource MainUIElement}" x:Name="ChooseModeView" Visibility="Visible"></views:ModeView>
+            <views:PvpSetupView Style="{StaticResource PvpUIElement}" Visibility="Collapsed"></views:PvpSetupView>
         </Grid>
     </Border>
 </Window>
