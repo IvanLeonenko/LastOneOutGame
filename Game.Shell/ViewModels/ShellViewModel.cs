@@ -1,9 +1,10 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using Game.Lastoneout.Events;
 using Game.Lastoneout.Services;
 using Game.Shell.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Game.Shell.ViewModels
@@ -15,15 +16,24 @@ namespace Game.Shell.ViewModels
         public DelegateCommand ExitCommand { get; private set; }
         public DelegateCommand<object> StartCommand { get; private set; }
 
-        public ShellViewModel(IUserInfoService userInfoService)
+        public ShellViewModel(IUserInfoService userInfoService, IEventAggregator eventAggregator)
         {
             // Initialize this ViewModel's commands.
             ExitCommand = new DelegateCommand(Application.Current.Shutdown);
-            PvpToMainCommand = new DelegateCommand(() => { PvpToMain = true; GoToPvpSetup = false; });
-            GoToPvpSetupCommand = new DelegateCommand(() => { GoToPvpSetup = true; PvpToMain = false; });
+            PvpToMainCommand = new DelegateCommand(() => { ResetStates(); PvpToMain = true; });
+            GoToPvpSetupCommand = new DelegateCommand(() => { ResetStates(); GoToPvpSetup = true; });
+            eventAggregator.GetEvent<ReturnEvent>().Subscribe(x => { ResetStates(); GameToStart = true; });
             StartCommand = new DelegateCommand<object>(StartAction, x => !string.IsNullOrEmpty(Player1) && !string.IsNullOrEmpty(Player2));
 
             Player1 = userInfoService.GetUserName();
+        }
+
+        private void ResetStates()
+        {
+            PvpToMain = false; 
+            GoToPvpSetup = false; 
+            GameToStart = false; 
+            GoToStart = false;
         }
 
         private string _profileImage;
@@ -63,6 +73,7 @@ namespace Game.Shell.ViewModels
         {
             var gameService = ServiceLocator.Current.GetInstance<IGameService>();
             gameService.Start(Player1, Player2);
+            ResetStates();
             GoToStart = true;
         }
 
@@ -78,15 +89,20 @@ namespace Game.Shell.ViewModels
 
         #region Navigation states
         private bool _goToPvpSetup;
-
         public bool GoToPvpSetup
         {
             get { return _goToPvpSetup; }
             set { SetProperty(ref _goToPvpSetup, value); }
         }
 
-        private bool _pvpToMain;
+        private bool _gameToStart;
+        public bool GameToStart
+        {
+            get { return _gameToStart; }
+            set { SetProperty(ref _gameToStart, value); }
+        }
 
+        private bool _pvpToMain;
         public bool PvpToMain
         {
             get { return _pvpToMain; }

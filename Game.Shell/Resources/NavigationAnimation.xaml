@@ -32,7 +32,8 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding GoToPvpSetup}" Value="True">
                 <DataTrigger.EnterActions>
-                    <RemoveStoryboard BeginStoryboardName="GoToPvpSetupBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB2"></RemoveStoryboard>
                     <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
                     <BeginStoryboard Name="GoToPvpSetupBeginSB" Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
                 </DataTrigger.EnterActions>
@@ -40,8 +41,17 @@
             <DataTrigger Binding="{Binding PvpToMain}" Value="True">
                 <DataTrigger.EnterActions>
                     <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB2"></RemoveStoryboard>
                     <RemoveStoryboard BeginStoryboardName="GoToPvpSetupBeginSB"></RemoveStoryboard>
                     <BeginStoryboard Name="ShowMainBeginSB"  Storyboard="{StaticResource VisibleStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding GameToStart}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="GoToPvpSetupBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="ShowMainBeginSB2"  Storyboard="{StaticResource VisibleStoryboard}"/>
                 </DataTrigger.EnterActions>
             </DataTrigger>
         </Style.Triggers>
@@ -79,7 +89,15 @@
             <DataTrigger Binding="{Binding GoToStart}" Value="True">
                 <DataTrigger.EnterActions>
                     <RemoveStoryboard BeginStoryboardName="BeginSBGameDesk"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="GameToStartBeginSB"></RemoveStoryboard>
                     <BeginStoryboard Name="BeginSBGameDesk" Storyboard="{StaticResource VisibleStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding GameToStart}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="GameToStartBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="BeginSBGameDesk"></RemoveStoryboard>
+                    <BeginStoryboard Name="GameToStartBeginSB" Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
                 </DataTrigger.EnterActions>
             </DataTrigger>
         </Style.Triggers>

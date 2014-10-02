@@ -52,11 +52,9 @@ namespace Game.Lastoneout.Services
 
         public void Start(string player1Name, string player2Name)
         {
-            Reset();
             Player1Name = player1Name;
             Player2Name = player2Name;
-            OnStarted();
-            OnUpdated();
+            Reset();
         }
 
         public void SetAILevel(byte level)
@@ -67,6 +65,8 @@ namespace Game.Lastoneout.Services
         public void Reset()
         {
             _count = 20;
+            OnStarted();
+            OnUpdated();
         }
 
         public int GetCount()

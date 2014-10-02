@@ -31,11 +31,11 @@
             <TextBlock Text="Game over!" Style="{StaticResource PlayerNameTextBlockStyle}"></TextBlock>
             <TextBlock Grid.Row="1"  Text="{Binding GameOverText}" Style="{StaticResource GameoverTextBlockStyle}"></TextBlock>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Height="40" Width="120" Margin="0,0,20,0" Content="One more time"></Button>
-                <Button Height="40" Width="120" Margin="20,0,0,0" Content="Back to start"></Button>
+                <Button Height="40" Width="120" Margin="0,0,20,0" Content="One more time" Command="{Binding RestartCommand}"></Button>
+                <Button Height="40" Width="120" Margin="20,0,0,0" Content="Back to start"  Command="{Binding ReturnCommand}"></Button>
             </StackPanel>
         </Grid>
-        <TextBlock Grid.Row="1" Text="Choosing first player..." Visibility="{Binding GameActive, Converter={StaticResource BoolToVisInverted}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Row="1" Text="{Binding Count}" Visibility="{Binding GameOver, Converter={StaticResource BoolToVisInverted}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="1" Text="Choosing first player..." Visibility="{Binding ChoosingPlayer, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="1" Text="{Binding Count}" Visibility="{Binding GameActive, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
     </Grid>
 </UserControl>

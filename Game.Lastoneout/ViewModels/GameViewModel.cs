@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Game.Lastoneout.Events;
 using Game.Lastoneout.Helpers;
 using Game.Lastoneout.Services;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 
@@ -52,9 +53,18 @@ namespace Game.Lastoneout.ViewModels
             get { return _gameOverText; }
             set { SetProperty(ref _gameOverText, value); }
         }
+        private bool _choosingPlayer;
+        public bool ChoosingPlayer
+        {
+            get { return _choosingPlayer; }
+            set { SetProperty(ref _choosingPlayer, value); }
+        }
         #endregion
 
         private readonly IGameService _gameService;
+
+        public DelegateCommand RestartCommand { get; private set; }
+        public DelegateCommand ReturnCommand { get; private set; }
 
         public GameViewModel(IGameService gameService, IEventAggregator eventAggregator)
         {
@@ -73,7 +83,8 @@ namespace Game.Lastoneout.ViewModels
 
             _gameService.Started += async (sender, args) =>
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(2000));
+                GameOver = false;
+                await ChoosingPlayerDelay();
                 var whoIsFirst = RandomHelper.FlipACoin();
                 Player1.IsActive = whoIsFirst;
                 Player2.IsActive = !whoIsFirst;
@@ -96,10 +107,19 @@ namespace Game.Lastoneout.ViewModels
                 Player1.IsActive = Player2.IsActive = false;
             };
 
+            RestartCommand = new DelegateCommand(() => _gameService.Reset());
+            ReturnCommand = new DelegateCommand(() => eventAggregator.GetEvent<ReturnEvent>().Publish(null));
+
             Player1.PlayerName = _gameService.Player1Name;
             Player2.PlayerName = _gameService.Player2Name;
             
         }
 
+        private async Task ChoosingPlayerDelay()
+        {
+            ChoosingPlayer = true;
+            await Task.Delay(TimeSpan.FromMilliseconds(2000));
+            ChoosingPlayer = false;
+        }
     }
 }
