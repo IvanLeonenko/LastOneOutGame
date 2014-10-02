@@ -158,6 +158,10 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Game.Common\Game.Common.csproj">
+      <Project>{eb364ea8-2b13-4c07-8cc5-0ea88ae099d4}</Project>
+      <Name>Game.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Game.Lastoneout\Game.Lastoneout.csproj">
       <Project>{98979449-d573-480e-9396-c852ef00be6e}</Project>
       <Name>Game.Lastoneout</Name>

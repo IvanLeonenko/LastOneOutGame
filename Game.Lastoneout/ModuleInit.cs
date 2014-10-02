@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.Lastoneout.GameInfrastructure.AiPLayer;
 using Game.Lastoneout.Services;
 using Game.Lastoneout.Views;
 using Microsoft.Practices.Prism.Modularity;
@@ -27,6 +28,12 @@ namespace Game.Lastoneout
         public void Initialize()
         {
             _container.RegisterType<IGameService, LastoneoutGameService>(new ContainerControlledLifetimeManager());
+
+            var aiPlayerProvider = new AiPlayerProvider();
+            aiPlayerProvider.AddPlayer(AiPlayers.Bender, new BenderPlayer());
+            aiPlayerProvider.AddPlayer(AiPlayers.R2D2, new R2D2Player());
+            aiPlayerProvider.AddPlayer(AiPlayers.Skynet, new SkynetPlayer());
+            _container.RegisterInstance(typeof (IAiPlayerProvider), aiPlayerProvider, new ContainerControlledLifetimeManager());
 
             _regionManager.RegisterViewWithRegion(RegionNames.LeftRegion, () => _container.Resolve<GameView>());
             //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => _container.Resolve<DeskView>());

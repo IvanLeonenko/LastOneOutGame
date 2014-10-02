@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Game.Lastoneout.Converters
+namespace Game.Common.Converters
 {
     public sealed class BooleanToVisibilityConverter : BooleanConverter<Visibility>
     {

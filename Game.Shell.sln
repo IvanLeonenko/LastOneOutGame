@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Shell", "Game.Shell\Ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Lastoneout", "Game.Lastoneout\Game.Lastoneout.csproj", "{98979449-D573-480E-9396-C852EF00BE6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Common", "Game.Common\Game.Common.csproj", "{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{98979449-D573-480E-9396-C852EF00BE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98979449-D573-480E-9396-C852EF00BE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98979449-D573-480E-9396-C852EF00BE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Lastoneout.Helpers
+namespace Game.Common.Helpers
 {
     public class RandomHelper
     {

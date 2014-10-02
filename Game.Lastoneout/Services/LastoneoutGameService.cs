@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Game.Lastoneout.GameInfrastructure.AiPLayer;
 
 namespace Game.Lastoneout.Services
 {
@@ -13,6 +10,13 @@ namespace Game.Lastoneout.Services
         public event EventHandler GameFinished;
         public event EventHandler Updated;
         public event EventHandler Started;
+
+        private readonly IAiPlayerProvider _aiPlayerProvider;
+
+        public LastoneoutGameService(IAiPlayerProvider aiPlayerProvider)
+        {
+            _aiPlayerProvider = aiPlayerProvider;
+        }
 
         protected virtual void OnStarted()
         {
@@ -54,13 +58,47 @@ namespace Game.Lastoneout.Services
         {
             Player1Name = player1Name;
             Player2Name = player2Name;
+            IsAiGame = false;
+            Reset();
+        }
+        
+        public void Start(string playerName, string playerImageSource, AiPlayers aiPlayer)
+        {
+            Player1Name = playerName;
+            _playerImageSource = playerImageSource;
+            IsAiGame = true;
+            _aiPlayer = _aiPlayerProvider.GetAiPlayer(aiPlayer);
             Reset();
         }
 
-        public void SetAILevel(byte level)
+        private IAiPlayer _aiPlayer;
+        private string _playerImageSource;
+        public string GetPlayerImage()
         {
-            //throw new NotImplementedException();
+            return _playerImageSource;
         }
+
+        public string GetAiPlayerImage()
+        {
+            return _aiPlayer.ImageSource;
+        }
+
+        public string GetAiPlayerMessage()
+        {
+            return _aiPlayer.GetMessage();
+        }
+
+        public TimeSpan GetAiPlayerDelay()
+        {
+            return _aiPlayer.GetDelay();
+        }
+
+        public int AiPlayerStep(int state)
+        {
+            return _aiPlayer.GetMove(state);
+        }
+
+        public bool IsAiGame { get; private set; }
 
         public void Reset()
         {
