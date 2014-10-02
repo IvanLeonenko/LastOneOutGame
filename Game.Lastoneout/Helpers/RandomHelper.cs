@@ -17,7 +17,7 @@ namespace Game.Lastoneout.Helpers
 
         public static bool FlipACoin()
         {
-            return RandomNumber(0, 1) == 1;
+            return RandomNumber(0, 2) == 1;
         }
     }
 }
