@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Game.Lastoneout.Events;
+using Game.Lastoneout.GameInfrastructure;
 using Game.Lastoneout.GameInfrastructure.AiPLayer;
-using Game.Lastoneout.Services;
 using Game.Shell.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
@@ -21,7 +21,7 @@ namespace Game.Shell.ViewModels
         public DelegateCommand ExitCommand { get; private set; }
         public DelegateCommand<object> StartCommand { get; private set; }
 
-        private readonly IUserInfoService userInfo;
+        private readonly IUserInfoService _userInfo;
 
         public ShellViewModel(IUserInfoService userInfoService, IEventAggregator eventAggregator)
         {
@@ -33,7 +33,7 @@ namespace Game.Shell.ViewModels
             eventAggregator.GetEvent<ReturnEvent>().Subscribe(x => { ResetStates(); GameToStart = true; });
             StartCommand = new DelegateCommand<object>(StartAction, x => (!string.IsNullOrEmpty(Player1) && !string.IsNullOrEmpty(Player2) && !IsAiPlayerGame) || IsAiPlayerGame);
             
-            userInfo = userInfoService;
+            _userInfo = userInfoService;
             Player1 = userInfoService.GetUserName();
         }
 
@@ -98,7 +98,7 @@ namespace Game.Shell.ViewModels
         {
             var gameService = ServiceLocator.Current.GetInstance<IGameService>();
             if (IsAiPlayerGame)
-                gameService.Start(Player1, userInfo.GetUserProfileImagePath(), SelectedAiPlayer);
+                gameService.Start(Player1, _userInfo.GetUserProfileImagePath(), SelectedAiPlayer);
             else
                 gameService.Start(Player1, Player2);
             ResetStates();

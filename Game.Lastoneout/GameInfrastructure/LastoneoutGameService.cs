@@ -1,17 +1,21 @@
 ﻿using System;
 using Game.Lastoneout.GameInfrastructure.AiPLayer;
 
-namespace Game.Lastoneout.Services
+namespace Game.Lastoneout.GameInfrastructure
 {
     class LastoneoutGameService : IGameService
     {
         private int _count;
+        private IAiPlayer _aiPlayer;
+        private string _playerImageSource;
+        private readonly IAiPlayerProvider _aiPlayerProvider;
 
         public event EventHandler GameFinished;
         public event EventHandler Updated;
         public event EventHandler Started;
 
-        private readonly IAiPlayerProvider _aiPlayerProvider;
+        public string Player1Name { get; private set; }
+        public string Player2Name { get; private set; }
 
         public LastoneoutGameService(IAiPlayerProvider aiPlayerProvider)
         {
@@ -23,10 +27,7 @@ namespace Game.Lastoneout.Services
             var handler = Started;
             if (handler != null) handler(this, EventArgs.Empty);
         }
-
-        public string Player1Name { get; private set; }
-        public string Player2Name { get; private set; }
-
+        
         protected virtual void OnUpdated()
         {
             var handler = Updated;
@@ -72,8 +73,6 @@ namespace Game.Lastoneout.Services
             Reset();
         }
 
-        private IAiPlayer _aiPlayer;
-        private string _playerImageSource;
         public string GetPlayerImage()
         {
             return _playerImageSource;

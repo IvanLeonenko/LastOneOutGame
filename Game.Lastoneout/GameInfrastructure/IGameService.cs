@@ -1,7 +1,7 @@
 ﻿using System;
 using Game.Lastoneout.GameInfrastructure.AiPLayer;
 
-namespace Game.Lastoneout.Services
+namespace Game.Lastoneout.GameInfrastructure
 {
     public interface IGameService
     {

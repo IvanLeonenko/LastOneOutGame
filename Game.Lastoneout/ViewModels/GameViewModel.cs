@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Game.Common.Helpers;
 using Game.Lastoneout.Events;
-using Game.Lastoneout.Services;
+using Game.Lastoneout.GameInfrastructure;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
