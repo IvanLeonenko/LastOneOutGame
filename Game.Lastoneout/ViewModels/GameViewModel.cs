@@ -78,20 +78,18 @@ namespace Game.Lastoneout.ViewModels
             _gameService = gameService;
             Player1 = new PlayerViewModel(gameService, eventAggregator);
             Player2 = new PlayerViewModel(gameService, eventAggregator);
-            Desk = new DeskViewModel(eventAggregator);
-            
+            Desk = new DeskViewModel(gameService);
+
             _gameService.Started += async (sender, args) =>
             {
                 GameOver = false;
                 Player1.PlayerName = _gameService.Player1Name;
                 Player2.PlayerName = _gameService.Player2Name;
                 Count = gameService.GetCount();
-                if (_gameService.IsAiGame)
-                {
-                    Player2.IsAiPlayer = true;
-                    Player1.ImageSource = _gameService.GetPlayerImage();
-                    Player2.ImageSource = _gameService.GetAiPlayerImage();
-                }
+
+                Player2.IsAiPlayer = _gameService.IsAiGame;
+                Player1.ImageSource = _gameService.GetPlayerImage();
+                Player2.ImageSource = _gameService.GetAiPlayerImage();
                 await ChoosingPlayerDelay();
                 var whoIsFirst = RandomHelper.FlipACoin();
                 Player1.IsActive = whoIsFirst;

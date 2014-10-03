@@ -7,43 +7,61 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <UserControl.Resources>
+        <Storyboard x:Key="BlinkStoryboard">
+            <DoubleAnimation From="0.7" To=".9" RepeatBehavior="Forever" Storyboard.TargetProperty="Opacity" Duration="0:0:.7">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseIn"></QuadraticEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation From="1" To="0.6" RepeatBehavior="Forever" Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.7" Duration="0:0:.75">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase EasingMode="EaseOut"></QuadraticEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="CollapseStoryboard">
+            <DoubleAnimation From="1" To="0" Storyboard.TargetProperty="Opacity" Duration="0:0:1" FillBehavior="HoldEnd"/>
+        </Storyboard>
+        <Storyboard x:Key="ShowStoryboard">
+            <DoubleAnimation From="0" To="1" Storyboard.TargetProperty="Opacity" Duration="0:0:1" FillBehavior="HoldEnd"/>
+        </Storyboard>
         <DataTemplate x:Key="CoinTemplate" DataType="viewModels:CoinViewModel">
             <Grid x:Name="DeskGrid" Background="Transparent">
                 <Image Source="/Game.Lastoneout;component/Images/coin.png" RenderOptions.BitmapScalingMode="Fant" Margin="5, 0, 5, 0" Width="80" Height="80"></Image>
             </Grid>
-            <!--<DataTemplate.Triggers>
-                <EventTrigger RoutedEvent="Window.Loaded" SourceName="NotificationWindow">
-                    <BeginStoryboard x:Name="FadeInStoryBoard">
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="NotificationWindow" From="0.01" To="1" Storyboard.TargetProperty="Opacity" Duration="0:0:2"/>
-                            <DoubleAnimation Storyboard.TargetName="NotificationWindow" From="1" To="0" Storyboard.TargetProperty="Opacity" Duration="0:0:2" BeginTime="0:0:6"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Trigger.EnterActions>
-                        <SeekStoryboard Offset="0:0:3" BeginStoryboardName="FadeInStoryBoard" />
-                        <PauseStoryboard BeginStoryboardName="FadeInStoryBoard" />
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <SeekStoryboard Offset="0:0:3" BeginStoryboardName="FadeInStoryBoard" />
-                        <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard"></ResumeStoryboard>
-                    </Trigger.ExitActions>
-                </Trigger>
-                <EventTrigger RoutedEvent="Button.Click" SourceName="CloseButton">
-                    <BeginStoryboard>
-                        <Storyboard >
-                            <DoubleAnimation Storyboard.TargetName="NotificationWindow" From="1" To="0" Storyboard.TargetProperty="(Grid.Opacity)" Duration="0:0:0"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <Trigger SourceName="NotificationWindow" Property="Opacity" Value="0">
-                    <Setter TargetName="NotificationWindow" Property="Visibility" Value="Hidden"></Setter>
-                    <Trigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource CollapseStoryboard}"/>
-                    </Trigger.EnterActions>
-                </Trigger>
-            </DataTemplate.Triggers>-->
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Visible}" Value="False">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard BeginStoryboardName="CollapseBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ShowBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="BlinkStoryboard"></RemoveStoryboard>
+                        <BeginStoryboard Name="CollapseBeginStoryboard" Storyboard="{StaticResource CollapseStoryboard}"/>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Visible}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard BeginStoryboardName="CollapseBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ShowBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="BlinkStoryboard"></RemoveStoryboard>
+                        <BeginStoryboard Name="ShowBeginStoryboard"  Storyboard="{StaticResource ShowStoryboard}"/>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Blink}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard BeginStoryboardName="CollapseBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ShowBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="BlinkStoryboard"></RemoveStoryboard>
+                        <BeginStoryboard Name="BlinkStoryboard"  Storyboard="{StaticResource BlinkStoryboard}"/>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Blink}" Value="False">
+                    <DataTrigger.EnterActions>
+                        <RemoveStoryboard BeginStoryboardName="CollapseBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="ShowBeginStoryboard"></RemoveStoryboard>
+                        <RemoveStoryboard BeginStoryboardName="BlinkStoryboard"></RemoveStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>

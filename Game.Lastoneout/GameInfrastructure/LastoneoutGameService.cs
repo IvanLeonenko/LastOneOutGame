@@ -60,6 +60,8 @@ namespace Game.Lastoneout.GameInfrastructure
             Player1Name = player1Name;
             Player2Name = player2Name;
             IsAiGame = false;
+            _playerImageSource = null;
+            _aiPlayer = null;
             Reset();
         }
         
@@ -80,17 +82,17 @@ namespace Game.Lastoneout.GameInfrastructure
 
         public string GetAiPlayerImage()
         {
-            return _aiPlayer.ImageSource;
+            return _aiPlayer == null ? null : _aiPlayer.ImageSource;
         }
 
         public string GetAiPlayerMessage()
         {
-            return _aiPlayer.GetMessage();
+            return _aiPlayer == null ? null : _aiPlayer.GetMessage();
         }
 
         public TimeSpan GetAiPlayerDelay()
         {
-            return _aiPlayer.GetDelay();
+            return _aiPlayer == null ? default(TimeSpan) : _aiPlayer.GetDelay();
         }
 
         public int AiPlayerStep(int state)
