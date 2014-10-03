@@ -33,7 +33,7 @@
 
             <Grid x:Name="DeskRoot" Opacity="0" Visibility="Collapsed" Style="{StaticResource ShowGameDesk}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--<Grid.ColumnDefinitions>

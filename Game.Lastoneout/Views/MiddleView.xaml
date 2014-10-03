@@ -15,9 +15,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="115"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Visibility="{Binding GameOver, Converter={StaticResource BoolToVis}}">
