@@ -18,7 +18,14 @@ namespace Game.Lastoneout.ViewModels
             get { return _gameOver; }
             set { SetProperty(ref _gameOver, value); }
         }
-        
+
+        private DeskViewModel _desk;
+        public DeskViewModel Desk
+        {
+            get { return _desk; }
+            set { SetProperty(ref _desk, value); }
+        }
+
         private PlayerViewModel _player1;
         public PlayerViewModel Player1
         {
@@ -71,7 +78,8 @@ namespace Game.Lastoneout.ViewModels
             _gameService = gameService;
             Player1 = new PlayerViewModel(gameService, eventAggregator);
             Player2 = new PlayerViewModel(gameService, eventAggregator);
-
+            Desk = new DeskViewModel(eventAggregator);
+            
             _gameService.Started += async (sender, args) =>
             {
                 GameOver = false;

@@ -10,5 +10,12 @@ namespace Game.Lastoneout.ViewModels
             get { return _visible; }
             set { SetProperty(ref _visible, value); }
         }
+
+        private bool _blink;
+        public bool Blink
+        {
+            get { return _blink; }
+            set { SetProperty(ref _blink, value); }
+        }
     }
 }

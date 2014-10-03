@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Game.Lastoneout.Views.DeskView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Game.Lastoneout.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <UserControl.Resources>
+        <DataTemplate x:Key="CoinTemplate" DataType="viewModels:CoinViewModel">
+            <Grid x:Name="DeskGrid" Background="Transparent">
+                <Image Source="/Game.Lastoneout;component/Images/coin.png" RenderOptions.BitmapScalingMode="Fant" Margin="5, 0, 5, 0" Width="80" Height="80"></Image>
+            </Grid>
+            <!--<DataTemplate.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded" SourceName="NotificationWindow">
+                    <BeginStoryboard x:Name="FadeInStoryBoard">
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="NotificationWindow" From="0.01" To="1" Storyboard.TargetProperty="Opacity" Duration="0:0:2"/>
+                            <DoubleAnimation Storyboard.TargetName="NotificationWindow" From="1" To="0" Storyboard.TargetProperty="Opacity" Duration="0:0:2" BeginTime="0:0:6"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <SeekStoryboard Offset="0:0:3" BeginStoryboardName="FadeInStoryBoard" />
+                        <PauseStoryboard BeginStoryboardName="FadeInStoryBoard" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <SeekStoryboard Offset="0:0:3" BeginStoryboardName="FadeInStoryBoard" />
+                        <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard"></ResumeStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="CloseButton">
+                    <BeginStoryboard>
+                        <Storyboard >
+                            <DoubleAnimation Storyboard.TargetName="NotificationWindow" From="1" To="0" Storyboard.TargetProperty="(Grid.Opacity)" Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <Trigger SourceName="NotificationWindow" Property="Opacity" Value="0">
+                    <Setter TargetName="NotificationWindow" Property="Visibility" Value="Hidden"></Setter>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource CollapseStoryboard}"/>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </DataTemplate.Triggers>-->
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Coins}" FocusVisualStyle="{x:Null}" ItemTemplate="{StaticResource CoinTemplate}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" Background="Transparent"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</UserControl>

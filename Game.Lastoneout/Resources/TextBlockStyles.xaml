@@ -15,7 +15,7 @@
 
     <Style x:Key="PlayerNameTextBlockStyle" TargetType="TextBlock">
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
         <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
         <Setter Property="MaxWidth" Value="150"></Setter>
         <Setter Property="FontSize" Value="22"></Setter>
@@ -23,6 +23,7 @@
         <Setter Property="Foreground" Value="{StaticResource ThirdBrush}"></Setter>
     </Style>
     <Style x:Key="GameoverTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PlayerNameTextBlockStyle}">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="MaxWidth" Value="300"></Setter>
         <Setter Property="MaxHeight"  Value="60"></Setter>
         <Setter Property="TextWrapping"  Value="Wrap"></Setter>

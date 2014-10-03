@@ -15,12 +15,29 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="160"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock  Text="{Binding PlayerName}" Style="{DynamicResource PlayerNameTextBlockStyle}"></TextBlock>
-        <Image Grid.Row="1" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="Fant" Margin="10, 0, 10, 0"></Image>
+        <StackPanel Margin="10, 0, 10, 0" Grid.Row="1" >
+            <Border
+                BorderBrush="#FF96B2E4"
+                BorderThickness="2"  
+                CornerRadius="15">
+                <Grid VerticalAlignment="Top">
+                    <Border Name="Mask" Background="DarkGray" BorderBrush="#FF3B5998" BorderThickness=".1" CornerRadius="13">
+                    </Border>
+                    <StackPanel>
+                        <Image  Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Top"></Image>
+                        <StackPanel.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=Mask}" />
+                        </StackPanel.OpacityMask>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+
         <StackPanel Grid.Row="2" Style="{StaticResource CollapsingPanelStyle}" MaxHeight="0">
             <StackPanel Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVisInverted}}">
                 <TextBlock Text="Please choose number of coins to grab" MaxWidth="140" MaxHeight="60" TextWrapping="Wrap"  Margin="10"></TextBlock>
