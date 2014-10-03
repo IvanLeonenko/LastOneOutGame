@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Game.Lastoneout.ViewModels
 {

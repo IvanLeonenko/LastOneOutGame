@@ -13,7 +13,7 @@
             <ColumnDefinition Width="180"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <views:PlayerView DataContext="{Binding Player1}"></views:PlayerView>
-        <views:MiddleView Grid.Column="1" Loaded="DeskView_Loaded"></views:MiddleView>
+        <views:MiddleView Grid.Column="1"></views:MiddleView>
         <views:PlayerView Grid.Column="2" DataContext="{Binding Player2}"></views:PlayerView>
     </Grid>
 </UserControl>
