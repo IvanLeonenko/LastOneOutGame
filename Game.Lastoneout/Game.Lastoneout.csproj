@@ -85,16 +85,18 @@
     <Compile Include="GameInfrastructure\AiPLayer\IAiPlayerProvider.cs" />
     <Compile Include="GameInfrastructure\AiPLayer\R2D2Player.cs" />
     <Compile Include="GameInfrastructure\AiPLayer\SkynetPlayer.cs" />
+    <Compile Include="ViewModels\CoinViewModel.cs" />
     <Compile Include="ModuleInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="GameInfrastructure\AiPLayer\IAiPlayer.cs" />
     <Compile Include="Services\LastoneoutGameService.cs" />
     <Compile Include="Services\IGameService.cs" />
+    <Compile Include="ViewModels\DeskViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
-    <Compile Include="Views\DeskView.xaml.cs">
-      <DependentUpon>DeskView.xaml</DependentUpon>
+    <Compile Include="Views\MiddleView.xaml.cs">
+      <DependentUpon>MiddleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
@@ -119,7 +121,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\DeskView.xaml">
+    <Page Include="Views\MiddleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,6 +139,14 @@
       <Project>{eb364ea8-2b13-4c07-8cc5-0ea88ae099d4}</Project>
       <Name>Game.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\coin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bender.png" />
+    <Resource Include="Images\r2d2.png" />
+    <Resource Include="Images\skynet.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

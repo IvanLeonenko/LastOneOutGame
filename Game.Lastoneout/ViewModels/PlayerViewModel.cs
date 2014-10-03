@@ -16,10 +16,7 @@ namespace Game.Lastoneout.ViewModels
         {
             SelectedInd = -1;
 
-            ButtonListCommand = new DelegateCommand<object>((step) =>
-            {
-                SetStep(Convert.ToInt32(step));
-            });
+            ButtonListCommand = new DelegateCommand<object>((step) => SetStep(Convert.ToInt32(step)));
 
             EndTurnCommand = new DelegateCommand<object>((x) =>
             {
@@ -31,7 +28,6 @@ namespace Game.Lastoneout.ViewModels
             }, (x) => _step > 0 && _step <= 3);
 
         }
-
 
         private bool _isAiPlayer;
         public bool IsAiPlayer

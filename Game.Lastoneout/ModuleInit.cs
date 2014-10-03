@@ -36,7 +36,7 @@ namespace Game.Lastoneout
             _container.RegisterInstance(typeof (IAiPlayerProvider), aiPlayerProvider, new ContainerControlledLifetimeManager());
 
             _regionManager.RegisterViewWithRegion(RegionNames.LeftRegion, () => _container.Resolve<GameView>());
-            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => _container.Resolve<DeskView>());
+            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => _container.Resolve<MiddleView>());
             //_regionManager.RegisterViewWithRegion(RegionNames.RightRegion, () => _container.Resolve<RightPlayerView>());
 
             //// This is an example of View Discovery which associates the specified view type

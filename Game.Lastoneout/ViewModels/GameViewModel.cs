@@ -72,48 +72,57 @@ namespace Game.Lastoneout.ViewModels
             Player1 = new PlayerViewModel(gameService, eventAggregator);
             Player2 = new PlayerViewModel(gameService, eventAggregator);
 
-            eventAggregator.GetEvent<EndTurnEvent>().Subscribe(async hash =>
-            {
-                if (!GameActive)
-                    return;
-                Player1.IsActive = !Player1.IsActive;
-                Player2.IsActive = !Player2.IsActive;
-                await AiTurn();
-            }
-            , true);
-
             _gameService.Started += async (sender, args) =>
             {
                 GameOver = false;
-                Player2.IsAiPlayer = _gameService.IsAiGame;
+                Player1.PlayerName = _gameService.Player1Name;
+                Player2.PlayerName = _gameService.Player2Name;
+                Count = gameService.GetCount();
+                if (_gameService.IsAiGame)
+                {
+                    Player2.IsAiPlayer = true;
+                    Player1.ImageSource = _gameService.GetPlayerImage();
+                    Player2.ImageSource = _gameService.GetAiPlayerImage();
+                }
                 await ChoosingPlayerDelay();
                 var whoIsFirst = RandomHelper.FlipACoin();
                 Player1.IsActive = whoIsFirst;
                 Player2.IsActive = !whoIsFirst;
                 GameActive = true;
-                await AiTurn();
+                if (Player2.IsActive)
+                    await AiTurn();
             };
+
+            eventAggregator.GetEvent<EndTurnEvent>().Subscribe(async hash =>
+            {
+                if (!GameActive)
+                    return;
+                await AiTurn();
+            }
+            , true);
 
             _gameService.Updated += (sender, args) =>
             {
-                UpdatePlayersData();
                 Count = _gameService.GetCount();
+                if (Count > 0)
+                {
+                    Player1.IsActive = !Player1.IsActive;
+                    Player2.IsActive = !Player2.IsActive;
+                }
             };
 
             _gameService.GameFinished += (sender, args) =>
             {
                 GameActive = false;
                 var winner = Player2.IsActive ? Player1 : Player2;
-                GameOverText = string.Format("Congratulations {0}!\nYou've just won!", winner.PlayerName);
                 Player1.IsActive = false;
                 Player2.IsActive = false;
+                GameOverText = string.Format("Congratulations {0}!\nYou've just won!", winner.PlayerName);
                 GameOver = true;
             };
 
             RestartCommand = new DelegateCommand(() => _gameService.Reset());
             ReturnCommand = new DelegateCommand(() => eventAggregator.GetEvent<ReturnEvent>().Publish(null));
-
-            UpdatePlayersData();
         }
 
         private async Task AiTurn()
@@ -121,18 +130,8 @@ namespace Game.Lastoneout.ViewModels
             if (_gameService.IsAiGame && _count > 0)
             {
                 await Task.Delay(_gameService.GetAiPlayerDelay());
-                if (_gameService.EndTurn(_gameService.AiPlayerStep(_count)))
-                {
-                    Player1.IsActive = !Player1.IsActive;
-                    Player2.IsActive = !Player2.IsActive;
-                }
+                _gameService.EndTurn(_gameService.AiPlayerStep(_count));
             }
-        }
-
-        private void UpdatePlayersData()
-        {
-            Player1.PlayerName = _gameService.Player1Name;
-            Player2.PlayerName = _gameService.Player2Name;
         }
 
         private async Task ChoosingPlayerDelay()

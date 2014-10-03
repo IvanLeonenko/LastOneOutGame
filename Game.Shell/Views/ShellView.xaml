@@ -1,4 +1,4 @@
-﻿<Window x:Class="Game.Shell.ShellView"
+﻿<Window x:Class="Game.Shell.Views.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:regions="http://www.codeplex.com/CompositeWPF"

@@ -6,7 +6,7 @@ namespace Game.Lastoneout.GameInfrastructure.AiPLayer
     class SkynetPlayer : IAiPlayer
     {
         public string Name { get { return "Skynet"; } }
-        public string ImageSource { get { return ""; } }
+        public string ImageSource { get { return "/Game.Lastoneout;component/Images/skynet.png"; } }
         public string GetMessage()
         {
             return "You won't be back, human..";

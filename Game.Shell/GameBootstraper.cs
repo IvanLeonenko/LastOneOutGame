@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Game.Shell.Services;
+using Game.Shell.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;

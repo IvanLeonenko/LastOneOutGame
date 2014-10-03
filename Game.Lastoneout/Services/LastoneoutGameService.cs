@@ -105,7 +105,6 @@ namespace Game.Lastoneout.Services
         {
             _count = 20;
             OnStarted();
-            OnUpdated();
         }
 
         public int GetCount()

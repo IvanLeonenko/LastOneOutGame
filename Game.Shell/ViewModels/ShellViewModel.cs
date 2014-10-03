@@ -43,6 +43,7 @@ namespace Game.Shell.ViewModels
             GoToPvpSetup = false; 
             GameToStart = false; 
             GoToStart = false;
+            IsAiPlayerGame = false;
         }
 
         private string _profileImage;

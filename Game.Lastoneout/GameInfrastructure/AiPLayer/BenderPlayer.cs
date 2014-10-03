@@ -6,7 +6,7 @@ namespace Game.Lastoneout.GameInfrastructure.AiPLayer
     class BenderPlayer : IAiPlayer
     {
         public string Name { get { return "Bender"; } }
-        public string ImageSource { get { return ""; } }
+        public string ImageSource { get { return "/Game.Lastoneout;component/Images/bender.png"; } }
         public string GetMessage()
         {
             return "Hey, wanna kill all humans?";
