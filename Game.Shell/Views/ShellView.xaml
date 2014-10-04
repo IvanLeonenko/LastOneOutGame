@@ -20,28 +20,15 @@
                 <i:InvokeCommandAction Command="{Binding ExitCommand}"></i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <!--<i:Interaction.Triggers>
-            <i:EventTrigger EventName="MouseDoubleClick">
-                <interactivity:InvokeCommandAction Command="{Binding CommandToBindTo}" 
-                                CommandParameter="{Binding CommandParameterToBindTo}" />
-            </i:EventTrigger>
-        </i:Interaction.Triggers>-->
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0" Color="#AAD8B0" Opacity="1" BlurRadius="8"></DropShadowEffect>
         </Border.Effect>
         <Grid x:Name="LayoutRoot" Background="Transparent">
-
             <Grid x:Name="DeskRoot" Opacity="0" Visibility="Collapsed" Style="{StaticResource ShowGameDesk}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="160"></ColumnDefinition>
-                </Grid.ColumnDefinitions>-->
-                <!-- Left Region -->
                 <Border Grid.Row="1"
                 BorderBrush="#FF4355C1"
                 BorderThickness="2,2,2,2"
@@ -56,7 +43,6 @@
 
                 <!-- Main Region -->
                 <Border Margin="2"
-                Grid.Column="1"
                 Grid.Row="1"
                 BorderThickness="2,2,2,2"
                 CornerRadius="4,4,4,4"
