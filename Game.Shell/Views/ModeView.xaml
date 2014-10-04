@@ -13,6 +13,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="210"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF6F69">Welcome to the "Last one out" game!</TextBlock>
@@ -25,7 +26,7 @@
                 </EventTrigger>
             </Button.Triggers>-->
         </Button>
-        <Button x:Name="PvpcModeButton" Grid.Row="2" Width="160" Height="40" Content="Player vs PC" Cursor="Hand"></Button>
+        <Button x:Name="PvpcModeButton" Grid.Row="2" Width="160" Height="40" Content="Player vs PC" Cursor="Hand" Command="{Binding GoToPvpcSetupCommand}"></Button>
         <Button Grid.Row="3" Width="160" Height="40" Content="Exit" Cursor="Hand" Command="{Binding ExitCommand}"></Button>
     </Grid>
 </UserControl>

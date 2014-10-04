@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Drawing.Text;
 using System.Threading.Tasks;
-using Game.Lastoneout.Helpers;
-using Game.Lastoneout.Services;
+using Game.Common.Helpers;
+using Game.Lastoneout.Events;
+using Game.Lastoneout.GameInfrastructure;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Game.Lastoneout.ViewModels
 {
@@ -17,7 +18,14 @@ namespace Game.Lastoneout.ViewModels
             get { return _gameOver; }
             set { SetProperty(ref _gameOver, value); }
         }
-        
+
+        private DeskViewModel _desk;
+        public DeskViewModel Desk
+        {
+            get { return _desk; }
+            set { SetProperty(ref _desk, value); }
+        }
+
         private PlayerViewModel _player1;
         public PlayerViewModel Player1
         {
@@ -45,42 +53,103 @@ namespace Game.Lastoneout.ViewModels
             get { return _gameActive; }
             set { SetProperty(ref _gameActive, value); }
         }
-        #endregion
 
-        private readonly IGameService _gameService;
-
-        public GameViewModel(IGameService gameService)
+        private string _gameOverText;
+        public string GameOverText
         {
-            _gameService = gameService;
-            Player1 = new PlayerViewModel(gameService);
-            Player2 = new PlayerViewModel(gameService);
+            get { return _gameOverText; }
+            set { SetProperty(ref _gameOverText, value); }
+        }
+        private bool _choosingPlayer;
+        public bool ChoosingPlayer
+        {
+            get { return _choosingPlayer; }
+            set { SetProperty(ref _choosingPlayer, value); }
+        }
+        #endregion
+        
+        public DelegateCommand RestartCommand { get; private set; }
+        public DelegateCommand ReturnCommand { get; private set; }
 
-            _gameService.Started += async (sender, args) =>
+        public GameViewModel(IGameService gameService, IEventAggregator eventAggregator)
+        {
+            Player1 = new PlayerViewModel(eventAggregator);
+            Player2 = new PlayerViewModel(eventAggregator);
+            Desk = new DeskViewModel(gameService);
+
+            gameService.Started += async (sender, args) =>
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(1500));
+                GameOver = false;
+                Player1.PlayerName = gameService.Player1Name;
+                Player2.PlayerName = gameService.Player2Name;
+                Count = gameService.GetCount();
+
+                Player2.IsAiPlayer = gameService.IsAiGame;
+                Player1.ImageSource = gameService.GetPlayerImage();
+                Player2.ImageSource = gameService.GetAiPlayerImage();
+                UpdatePlayersState(gameService);
+                await ChoosingPlayerDelay();
                 var whoIsFirst = RandomHelper.FlipACoin();
                 Player1.IsActive = whoIsFirst;
                 Player2.IsActive = !whoIsFirst;
                 GameActive = true;
+                if (Player2.IsActive)
+                    await AiTurn(gameService);
             };
 
-            _gameService.Updated += (sender, args) =>
+            eventAggregator.GetEvent<EndTurnEvent>().Subscribe(async step =>
             {
-                Player1.PlayerName = gameService.Player1Name;
-                Player2.PlayerName = gameService.Player2Name;
-                Count = _gameService.GetCount();
+                if (!GameActive)
+                    return;
+                gameService.EndTurn(step);
+                await AiTurn(gameService);
+            }
+            , true);
+
+            gameService.Updated += (sender, args) =>
+            {
+                Count = gameService.GetCount();
+                if (Count > 0)
+                {
+                    Player1.IsActive = !Player1.IsActive;
+                    Player2.IsActive = !Player2.IsActive;
+                    UpdatePlayersState(gameService);
+                }
             };
 
-            _gameService.GameFinished += (sender, args) =>
+            gameService.GameFinished += (sender, args) =>
             {
                 GameActive = false;
+                var winner = Player2.IsActive ? Player1 : Player2;
+                Player1.IsActive = Player2.IsActive = false;
+                GameOverText = string.Format("Congratulations {0}!\nYou've just won!", winner.PlayerName);
                 GameOver = true;
             };
 
-            Player1.PlayerName = _gameService.Player1Name;
-            Player2.PlayerName = _gameService.Player2Name;
-            
+            RestartCommand = new DelegateCommand(gameService.Reset);
+            ReturnCommand = new DelegateCommand(() => eventAggregator.GetEvent<ReturnEvent>().Publish(null));
         }
 
+        private async Task AiTurn(IGameService gameService)
+        {
+            if (gameService.IsAiGame && _count > 0)
+            {
+                await Task.Delay(gameService.GetAiPlayerDelay());
+                gameService.EndTurn(gameService.AiPlayerStep(_count));
+            }
+        }
+
+        private void UpdatePlayersState(IGameService gameService)
+        {
+            Player1.Show3Toggle = Player2.Show3Toggle = Count >= 3;
+            Player1.Show2Toggle = Player2.Show2Toggle = Count >= 2;
+        }
+
+        private async Task ChoosingPlayerDelay()
+        {
+            ChoosingPlayer = true;
+            await Task.Delay(TimeSpan.FromMilliseconds(2000));
+            ChoosingPlayer = false;
+        }
     }
 }

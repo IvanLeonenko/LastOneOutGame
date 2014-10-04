@@ -13,10 +13,5 @@ namespace Game.Lastoneout.Views
             InitializeComponent();
             DataContext = viewModel;
         }
-
-        private void DeskView_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
     }
 }

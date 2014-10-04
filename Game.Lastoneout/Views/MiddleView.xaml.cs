@@ -3,11 +3,11 @@
 namespace Game.Lastoneout.Views
 {
     /// <summary>
-    /// Interaction logic for DeskView.xaml
+    /// Interaction logic for MiddleView.xaml
     /// </summary>
-    public partial class DeskView : UserControl
+    public partial class MiddleView : UserControl
     {
-        public DeskView()
+        public MiddleView()
         {
             InitializeComponent();
         }

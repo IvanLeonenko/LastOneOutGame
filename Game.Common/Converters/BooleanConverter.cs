@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Game.Lastoneout.Converters
+namespace Game.Common.Converters
 {
     public class BooleanConverter<T> : IValueConverter
     {

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Game.Lastoneout.GameInfrastructure.AiPLayer;
 
-namespace Game.Lastoneout.Services
+namespace Game.Lastoneout.GameInfrastructure
 {
     public interface IGameService
     {
@@ -15,7 +12,13 @@ namespace Game.Lastoneout.Services
         string Player2Name { get; }
         bool EndTurn(int number);
         void Start(string player1Name, string player2Name);
-        void SetAILevel(byte level);
+        void Start(string playerName, string playerImageSource, AiPlayers aiPlayer);
+        string GetPlayerImage();
+        string GetAiPlayerImage();
+        string GetAiPlayerMessage();
+        TimeSpan GetAiPlayerDelay();
+        int AiPlayerStep(int state);
+        bool IsAiGame { get; }
         void Reset();
         int GetCount();
     }

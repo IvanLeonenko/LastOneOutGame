@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Game.Shell.ViewModels;
 
-namespace Game.Shell
+namespace Game.Shell.Views
 {
     /// <summary>
     /// Interaction logic for ShellView.xaml

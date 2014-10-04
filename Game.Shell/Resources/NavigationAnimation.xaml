@@ -1,0 +1,105 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Storyboard x:Key="GoToPvpSetupStoryboard">
+        <DoubleAnimation  Duration="00:00:00.25" From="1" To="0" Storyboard.TargetProperty="(UIElement.Opacity)">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase EasingMode="EaseOut"></QuadraticEase>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00.25" Storyboard.TargetProperty="(UIElement.Visibility)">
+            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Collapsed</Visibility>
+                </DiscreteObjectKeyFrame.Value>
+            </DiscreteObjectKeyFrame>
+        </ObjectAnimationUsingKeyFrames>
+    </Storyboard>
+    <Storyboard x:Key="VisibleStoryboard">
+        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00.25" Storyboard.TargetProperty="(UIElement.Visibility)">
+            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Visible</Visibility>
+                </DiscreteObjectKeyFrame.Value>
+            </DiscreteObjectKeyFrame>
+        </ObjectAnimationUsingKeyFrames>
+        <DoubleAnimation BeginTime="00:00:00.25"  Duration="00:00:00.25" From="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase EasingMode="EaseIn"></QuadraticEase>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+    <Style TargetType="UserControl" x:Key="MainUIElement" >
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding GoToPvpSetup}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="GoToPvpSetupBeginSB" Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding PvpToMain}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="GoToPvpSetupBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="ShowMainBeginSB"  Storyboard="{StaticResource VisibleStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding GameToStart}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="ShowMainBeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="GoToPvpSetupBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="ShowMainBeginSB2"  Storyboard="{StaticResource VisibleStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="UserControl" x:Key="PvpUIElement" >
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding GoToPvpSetup}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="BeginSB1"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="BeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="PvpToMainBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="BeginSB1"  Storyboard="{StaticResource VisibleStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding GoToStart}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="BeginSB1"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="BeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="PvpToMainBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="BeginSB2" Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding PvpToMain}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="BeginSB1"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="BeginSB2"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="PvpToMainBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="PvpToMainBeginSB" Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Grid" x:Key="ShowGameDesk" >
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding GoToStart}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="BeginSBGameDesk"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="GameToStartBeginSB"></RemoveStoryboard>
+                    <BeginStoryboard Name="BeginSBGameDesk" Storyboard="{StaticResource VisibleStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding GameToStart}" Value="True">
+                <DataTrigger.EnterActions>
+                    <RemoveStoryboard BeginStoryboardName="GameToStartBeginSB"></RemoveStoryboard>
+                    <RemoveStoryboard BeginStoryboardName="BeginSBGameDesk"></RemoveStoryboard>
+                    <BeginStoryboard Name="GameToStartBeginSB" Storyboard="{StaticResource GoToPvpSetupStoryboard}"/>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

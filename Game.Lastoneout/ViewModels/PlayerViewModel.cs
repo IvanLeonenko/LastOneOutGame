@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game.Lastoneout.Services;
+using Game.Lastoneout.Events;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace Game.Lastoneout.ViewModels
 {
@@ -13,23 +10,28 @@ namespace Game.Lastoneout.ViewModels
     {
         public DelegateCommand<object> ButtonListCommand { get; private set; }
         public DelegateCommand<object> EndTurnCommand { get; private set; }
-        
-        public PlayerViewModel(IGameService gameService)
+
+        public PlayerViewModel(IEventAggregator eventAggregator)
         {
             SelectedInd = -1;
 
-            ButtonListCommand = new DelegateCommand<object>((step) =>
-            {
-                SetStep(Convert.ToInt32(step));
-            });
+            Show2Toggle = Show3Toggle = true;
+            
+            ButtonListCommand = new DelegateCommand<object>((step) => SetStep(Convert.ToInt32(step)));
 
             EndTurnCommand = new DelegateCommand<object>((x) =>
             {
-                gameService.EndTurn(_step);
+                eventAggregator.GetEvent<EndTurnEvent>().Publish(_step);
                 SelectedInd = -1;
                 SetStep(0);
             }, (x) => _step > 0 && _step <= 3);
+        }
 
+        private bool _isAiPlayer;
+        public bool IsAiPlayer
+        {
+            get { return _isAiPlayer; }
+            set { SetProperty(ref _isAiPlayer, value); }
         }
 
         private int _step;
@@ -46,6 +48,13 @@ namespace Game.Lastoneout.ViewModels
             set { SetProperty(ref _playerName, value); }
         }
 
+        private string _imageSource;
+        public string ImageSource
+        {
+            get { return _imageSource; }
+            set { SetProperty(ref _imageSource, value); }
+        }
+
         private int _selectedInd;
         public int SelectedInd
         {
@@ -58,6 +67,20 @@ namespace Game.Lastoneout.ViewModels
         {
             get { return _isActive; }
             set { SetProperty(ref _isActive, value); }
+        }
+
+        private bool _show2Toggle;
+        public bool Show2Toggle
+        {
+            get { return _show2Toggle; }
+            set { SetProperty(ref _show2Toggle, value); }
+        }
+
+        private bool _show3Toggle;
+        public bool Show3Toggle
+        {
+            get { return _show3Toggle; }
+            set { SetProperty(ref _show3Toggle, value); }
         }
     }
 }

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Game.Lastoneout.Views.MiddleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:Game.Lastoneout.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="520">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Game.Lastoneout;component/Resources/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Lastoneout;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Lastoneout;component/Resources/PlayerAnimation.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="115"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Visibility="{Binding GameOver, Converter={StaticResource BoolToVis}}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding GameOverText}" Style="{StaticResource GameoverTextBlockStyle}"></TextBlock>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Height="40" Width="120" Margin="0,0,20,0" Content="One more time" Command="{Binding RestartCommand}"></Button>
+                <Button Height="40" Width="120" Margin="20,0,0,0" Content="Back to start"  Command="{Binding ReturnCommand}"></Button>
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Choosing first player..." Visibility="{Binding ChoosingPlayer, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="{Binding Count}" Visibility="{Binding GameActive, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <views:DeskView Grid.Row="1"  DataContext="{Binding Desk}" VerticalAlignment="Top"></views:DeskView>
+    </Grid>
+</UserControl>
