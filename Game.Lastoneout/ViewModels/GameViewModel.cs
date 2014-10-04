@@ -87,6 +87,7 @@ namespace Game.Lastoneout.ViewModels
                 Player2.IsAiPlayer = gameService.IsAiGame;
                 Player1.ImageSource = gameService.GetPlayerImage();
                 Player2.ImageSource = gameService.GetAiPlayerImage();
+                Player2.Message = gameService.GetAiPlayerMessage();
                 UpdatePlayersState(gameService);
                 await ChoosingPlayerDelay();
                 var whoIsFirst = RandomHelper.FlipACoin();
@@ -148,7 +149,7 @@ namespace Game.Lastoneout.ViewModels
         private async Task ChoosingPlayerDelay()
         {
             ChoosingPlayer = true;
-            await Task.Delay(TimeSpan.FromMilliseconds(2000));
+            await Task.Delay(TimeSpan.FromMilliseconds(3000));
             ChoosingPlayer = false;
         }
     }

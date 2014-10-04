@@ -12,6 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Game.Shell;component/Resources/NavigationAnimation.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/ButtonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -24,7 +25,7 @@
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0" Color="#AAD8B0" Opacity="1" BlurRadius="8"/>
         </Border.Effect>
-        <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid x:Name="LayoutRoot">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="Auto"/>
@@ -32,10 +33,9 @@
             <TextBlock Text="Last One Out" Style="{StaticResource TitleTextBlockStyle}"></TextBlock>
             <Grid x:Name="DeskRoot" Grid.Row="1" Opacity="0" Visibility="Collapsed" Style="{StaticResource ShowGameDesk}">
                 <Border 
-					BorderBrush="#FF4355C1"
-					BorderThickness="2,2,2,2"
-					CornerRadius="4,4,4,4"
-					Margin="2">
+					BorderBrush="{StaticResource FothBrush}"
+					BorderThickness="2,2,2,0"
+					CornerRadius="4,4,4,4" Margin="-1,0,-1,-20">
                     <!--Style="{StaticResource ContentControlRegionStyle}"-->
                     <ContentControl x:Name="LeftRegion"
 						interactivity:RegionManager.RegionName="LeftRegion"
@@ -43,10 +43,8 @@
 						HorizontalContentAlignment="Stretch" />
                 </Border>
             </Grid>
-            <views:ModeView Grid.Row="1" VerticalContentAlignment="Stretch"
-				HorizontalContentAlignment="Stretch" Style="{StaticResource MainUIElement}" x:Name="ChooseModeView" Visibility="Visible"/>
-            <views:PvpSetupView Grid.Row="1" VerticalContentAlignment="Stretch"
-				HorizontalContentAlignment="Stretch" Style="{StaticResource PvpUIElement}" Visibility="Collapsed"/>
+            <views:ModeView Grid.Row="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource MainUIElement}" x:Name="ChooseModeView" Visibility="Visible"/>
+            <views:PvpSetupView Grid.Row="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource PvpUIElement}" Visibility="Collapsed"/>
         </Grid>
     </Border>
 </Window>

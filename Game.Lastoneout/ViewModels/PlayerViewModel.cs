@@ -55,6 +55,13 @@ namespace Game.Lastoneout.ViewModels
             set { SetProperty(ref _imageSource, value); }
         }
 
+        private string _message;
+        public string Message
+        {
+            get { return _message; }
+            set { SetProperty(ref _message, value); }
+        }
+
         private int _selectedInd;
         public int SelectedInd
         {

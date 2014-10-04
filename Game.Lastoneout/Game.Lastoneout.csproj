@@ -98,6 +98,9 @@
     <Compile Include="Views\DeskView.xaml.cs">
       <DependentUpon>DeskView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoaderView.xaml.cs">
+      <DependentUpon>LoaderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MiddleView.xaml.cs">
       <DependentUpon>MiddleView.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

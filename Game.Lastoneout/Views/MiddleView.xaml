@@ -11,6 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Lastoneout;component/Resources/PlayerAnimation.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -27,12 +28,15 @@
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding GameOverText}" Style="{StaticResource GameoverTextBlockStyle}"></TextBlock>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
-                <Button Height="40" Width="120" Margin="0,0,20,0" Content="One more time" Command="{Binding RestartCommand}"></Button>
-                <Button Height="40" Width="120" Margin="20,0,0,0" Content="Back to start"  Command="{Binding ReturnCommand}"></Button>
+                <Button Height="40" Width="160" Margin="0,0,20,0" Style="{StaticResource Button1Style}" Content="One more time" Command="{Binding RestartCommand}"></Button>
+                <Button Height="40" Width="160" Margin="20,0,0,0" Style="{StaticResource Button1Style}" Content="Back to start"  Command="{Binding ReturnCommand}"></Button>
             </StackPanel>
         </Grid>
-        <TextBlock Text="Choosing first player..." Visibility="{Binding ChoosingPlayer, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-        <TextBlock Text="{Binding Count}" Visibility="{Binding GameActive, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Visibility="{Binding ChoosingPlayer, Converter={StaticResource BoolToVis}}" Orientation="Horizontal" HorizontalAlignment="Center">
+            <views:LoaderView  Width="15"  VerticalAlignment="Center" Margin="0,40,0,0"></views:LoaderView>
+            <TextBlock Text="Choosing first player..." Style="{StaticResource PlayerNameTextBlockStyle}" Margin="30,0,0,0" MaxHeight="80" MaxWidth="320" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+        <TextBlock Text="{Binding Count}" Style="{StaticResource PlayerNameTextBlockStyle}" FontSize="42" MaxHeight="80" Visibility="{Binding GameActive, Converter={StaticResource BoolToVis}}" VerticalAlignment="Center"></TextBlock>
         <views:DeskView Grid.Row="1"  DataContext="{Binding Desk}" VerticalAlignment="Top"></views:DeskView>
     </Grid>
 </UserControl>

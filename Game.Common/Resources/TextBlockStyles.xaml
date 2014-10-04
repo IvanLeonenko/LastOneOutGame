@@ -22,6 +22,23 @@
         <Setter Property="MaxHeight"  Value="40"></Setter>
         <Setter Property="Foreground" Value="{StaticResource ThirdBrush}"></Setter>
     </Style>
+
+    <Style x:Key="StatusTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PlayerNameTextBlockStyle}">
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="TextAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style x:Key="MessageTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PlayerNameTextBlockStyle}">
+        <Setter Property="TextTrimming" Value="None"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="MaxHeight"  Value="60"></Setter>
+        <Setter Property="TextWrapping"  Value="Wrap"></Setter>
+        <Setter Property="LineHeight"  Value="20"></Setter>
+        <Setter Property="Margin"  Value="0,46,0,0"></Setter>
+        <Setter Property="FontFamily" Value="Lucida Console"></Setter>
+        <Setter Property="Foreground" Value="LimeGreen"></Setter>
+    </Style>
+
     <Style x:Key="GameoverTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PlayerNameTextBlockStyle}">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="MaxWidth" Value="300"></Setter>
@@ -33,7 +50,7 @@
 
 
     <LinearGradientBrush x:Key="Gradient1" StartPoint="0.5,0" EndPoint="0.5,1">
-        <GradientStop Color="{StaticResource FourthColor}" Offset="0.0" />
+        <GradientStop Color="{StaticResource FourthColor}" Offset="0.2" />
         <!--<GradientStop Color="{StaticResource FirstColor}" Offset="0.25" />
         <GradientStop Color="{StaticResource FirstColor}" Offset="0.75" />-->
         <GradientStop Color="{StaticResource SecondColor}" Offset="1.0" />

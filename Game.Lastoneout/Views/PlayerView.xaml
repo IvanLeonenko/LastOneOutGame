@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:Game.Lastoneout.Views"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Lastoneout;component/Resources/PlayerAnimation.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -17,12 +19,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="125"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="180"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock  Text="{Binding PlayerName}" Style="{DynamicResource PlayerNameTextBlockStyle}"></TextBlock>
+        <TextBlock  Text="{Binding Message}" Style="{DynamicResource MessageTextBlockStyle}"></TextBlock>
         <StackPanel Margin="10, 0, 10, 0" Grid.Row="1" >
             <Border
-                BorderBrush="#FF96B2E4"
+                BorderBrush="{StaticResource FothBrush}"
                 BorderThickness="2"  
                 CornerRadius="15">
                 <Grid VerticalAlignment="Top">
@@ -40,7 +43,7 @@
 
         <StackPanel Grid.Row="2" Style="{StaticResource CollapsingPanelStyle}" MaxHeight="0">
             <StackPanel Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVisInverted}}">
-                <TextBlock Text="Please choose number of coins to grab" MaxWidth="140" MaxHeight="60" TextWrapping="Wrap"  Margin="10"></TextBlock>
+                <TextBlock Text="Please choose a number of coins to take" Style="{StaticResource StatusTextBlockStyle}"  MaxWidth="160" MaxHeight="60" TextWrapping="Wrap"  Margin="5,5,5,10"></TextBlock>
                 <ListBox Height="32" SelectedIndex="{Binding SelectedInd}" SelectionMode="Single" Background="Transparent" BorderThickness="0" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -51,10 +54,11 @@
                     <ListBoxItem Width="30" Height="30" Content="2" Visibility="{Binding Show2Toggle, Converter={StaticResource BoolToVis}}"/>
                     <ListBoxItem Width="30" Height="30" Content="3" Visibility="{Binding Show3Toggle, Converter={StaticResource BoolToVis}}"/>
                 </ListBox>
-                <Button Width="80" Height="40" Margin="0, 20, 0, 0" Content="End turn" Command="{Binding EndTurnCommand}"></Button>
+                <Button Width="90" Height="40" Margin="0, 20, 0, 0" Style="{StaticResource Button1Style}" Content="End turn" Command="{Binding EndTurnCommand}"></Button>
             </StackPanel>
-            <StackPanel Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVis}}">
-                <TextBlock Text="Thinking...."></TextBlock>
+            <StackPanel Visibility="{Binding IsAiPlayer, Converter={StaticResource BoolToVis}}" Orientation="Horizontal" Margin="35, 60,0,0" >
+                <views:LoaderView Width="15"></views:LoaderView>
+                <TextBlock Text="Thinking...." Style="{StaticResource StatusTextBlockStyle}" Margin="25, 0, 0, 0"></TextBlock>
             </StackPanel>
         </StackPanel>
     </Grid>
