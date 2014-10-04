@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/Converters.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/ToggleButtonStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Game.Lastoneout;component/Resources/PlayerAnimation.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
