@@ -31,4 +31,26 @@
         <Setter Property="TextAlignment" Value="Center"></Setter>
     </Style>
 
+
+    <LinearGradientBrush x:Key="Gradient1" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="{StaticResource FourthColor}" Offset="0.0" />
+        <!--<GradientStop Color="{StaticResource FirstColor}" Offset="0.25" />
+        <GradientStop Color="{StaticResource FirstColor}" Offset="0.75" />-->
+        <GradientStop Color="{StaticResource SecondColor}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <DropShadowEffect x:Key="DropShadow" BlurRadius="4" ShadowDepth="2" Direction="315" />
+    <BlurEffect x:Key="BlurShadow" Radius="1.0" KernelType="Box" />
+    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="10,10,0,0"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+        <Setter Property="MaxWidth" Value="400"></Setter>
+        <Setter Property="FontSize" Value="26"></Setter>
+        <Setter Property="MaxHeight"  Value="50"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource ThirdBrush}"></Setter>
+        <Setter Property="Effect" Value="{StaticResource DropShadow}"></Setter>
+    </Style>
+
 </ResourceDictionary>

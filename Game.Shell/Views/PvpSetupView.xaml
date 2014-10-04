@@ -7,8 +7,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Game.Shell;component/Resources/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Game.Shell;component/Resources/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

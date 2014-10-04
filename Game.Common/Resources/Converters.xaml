@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:Game.Common.Converters;assembly=Game.Common">
+                    xmlns:converters="clr-namespace:Game.Common.Converters">
     <converters:BooleanToVisibilityConverter  x:Key="BoolToVis" True="Visible" False="Collapsed" />
     <converters:BooleanToVisibilityConverter  x:Key="BoolToVisInverted" True="Collapsed" False="Visible" />
 </ResourceDictionary>

@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Game.Shell;component/Resources/NavigationAnimation.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Game.Shell;component/Resources/TextStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Game.Common;component/Resources/TextBlockStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
