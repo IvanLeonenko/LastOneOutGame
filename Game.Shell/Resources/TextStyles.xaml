@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="FirstColor">#96ceb4</Color>
+    <Color x:Key="SecondColor">#ffeead</Color>
+    <Color x:Key="ThirdColor">#ff6f69</Color>
+    <Color x:Key="FourthColor">#ffcc5c</Color>
+    <Color x:Key="FithColor">#aad8b0</Color>
+
+    <SolidColorBrush x:Key="FirstBrush" Color="{StaticResource FirstColor}" />
+    <SolidColorBrush x:Key="SecondBrush" Color="{StaticResource SecondColor}" />
+    <SolidColorBrush x:Key="ThirdBrush" Color="{StaticResource ThirdColor}" />
+    <SolidColorBrush x:Key="FourthBrush" Color="{StaticResource FourthColor}" />
+    <SolidColorBrush x:Key="FothBrush" Color="{StaticResource FithColor}" />
+
+    <LinearGradientBrush x:Key="Gradient1" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="{StaticResource FourthColor}" Offset="0.0" />
+        <!--<GradientStop Color="{StaticResource FirstColor}" Offset="0.25" />
+        <GradientStop Color="{StaticResource FirstColor}" Offset="0.75" />-->
+        <GradientStop Color="{StaticResource SecondColor}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <DropShadowEffect x:Key="DropShadow" BlurRadius="4" ShadowDepth="2" Direction="315" />
+    <BlurEffect x:Key="BlurShadow" Radius="1.0" KernelType="Box" />
+    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="10,10,0,0"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+        <Setter Property="MaxWidth" Value="400"></Setter>
+        <Setter Property="FontSize" Value="26"></Setter>
+        <Setter Property="MaxHeight"  Value="50"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource ThirdBrush}"></Setter>
+        <Setter Property="Effect" Value="{StaticResource DropShadow}"></Setter>
+    </Style>
+</ResourceDictionary>
