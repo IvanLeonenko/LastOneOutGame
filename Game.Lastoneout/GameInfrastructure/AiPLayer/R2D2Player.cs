@@ -19,37 +19,20 @@ namespace Game.Lastoneout.GameInfrastructure.AiPLayer
 
         public int GetMove(int state)
         {
-            //When state is 5 doesn't matter what is returned (loose case)
-            // [2 - 4] win case 
-            if (state <= 5)
-                return state <= 4 ? Math.Max(state - 1, 1) : RandomHelper.RandomNumber(1, 4);
+            // maintain winning position in 50% of cases
 
-            var tmp = 0;
-            var i = 0;
-            while (tmp < state)
+            if (!RandomHelper.FlipACoin())
+                return RandomHelper.RandomNumber(1, Math.Min(3, state) + 1);
+            
+            switch (state % 4) 
             {
-                tmp = 5 + (4 * i);
-                i++;
+                case 0:
+                    return 3;
+                case 3:
+                    return 2;
+                default:
+                    return 1;
             }
-
-            if (tmp == state) // like 5
-            {
-                return 1;
-            }
-
-            if (RandomHelper.FlipACoin()) //maintains optimal position in 50% os cases
-            {
-                switch (tmp - state) // maintain position winning position
-                {
-                    case 3:
-                        return 1;
-                    case 2:
-                        return 2;
-                    default:
-                        return 3;
-                }
-            }
-            return RandomHelper.RandomNumber(1, 4);
         }
     }
 }
