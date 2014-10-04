@@ -1,6 +1,5 @@
 ﻿using System;
 using Game.Lastoneout.Events;
-using Game.Lastoneout.GameInfrastructure;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
@@ -12,21 +11,20 @@ namespace Game.Lastoneout.ViewModels
         public DelegateCommand<object> ButtonListCommand { get; private set; }
         public DelegateCommand<object> EndTurnCommand { get; private set; }
 
-        public PlayerViewModel(IGameService gameService, IEventAggregator eventAggregator)
+        public PlayerViewModel(IEventAggregator eventAggregator)
         {
             SelectedInd = -1;
 
+            Show2Toggle = Show3Toggle = true;
+            
             ButtonListCommand = new DelegateCommand<object>((step) => SetStep(Convert.ToInt32(step)));
 
             EndTurnCommand = new DelegateCommand<object>((x) =>
             {
-                if (!gameService.EndTurn(_step)) 
-                    return;
+                eventAggregator.GetEvent<EndTurnEvent>().Publish(_step);
                 SelectedInd = -1;
                 SetStep(0);
-                eventAggregator.GetEvent<EndTurnEvent>().Publish(this.GetHashCode());
             }, (x) => _step > 0 && _step <= 3);
-
         }
 
         private bool _isAiPlayer;
@@ -69,6 +67,20 @@ namespace Game.Lastoneout.ViewModels
         {
             get { return _isActive; }
             set { SetProperty(ref _isActive, value); }
+        }
+
+        private bool _show2Toggle;
+        public bool Show2Toggle
+        {
+            get { return _show2Toggle; }
+            set { SetProperty(ref _show2Toggle, value); }
+        }
+
+        private bool _show3Toggle;
+        public bool Show3Toggle
+        {
+            get { return _show3Toggle; }
+            set { SetProperty(ref _show3Toggle, value); }
         }
     }
 }

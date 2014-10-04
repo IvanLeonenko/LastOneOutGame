@@ -48,8 +48,8 @@
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                     <ListBoxItem Width="30" Height="30" Content="1"/>
-                    <ListBoxItem Width="30" Height="30" Content="2"/>
-                    <ListBoxItem Width="30" Height="30" Content="3"/>
+                    <ListBoxItem Width="30" Height="30" Content="2" Visibility="{Binding Show2Toggle, Converter={StaticResource BoolToVis}}"/>
+                    <ListBoxItem Width="30" Height="30" Content="3" Visibility="{Binding Show3Toggle, Converter={StaticResource BoolToVis}}"/>
                 </ListBox>
                 <Button Width="80" Height="40" Margin="0, 20, 0, 0" Content="End turn" Command="{Binding EndTurnCommand}"></Button>
             </StackPanel>

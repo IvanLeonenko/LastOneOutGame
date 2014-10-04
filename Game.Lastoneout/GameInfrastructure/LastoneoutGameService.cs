@@ -77,12 +77,12 @@ namespace Game.Lastoneout.GameInfrastructure
 
         public string GetPlayerImage()
         {
-            return _playerImageSource;
+            return _playerImageSource ?? "/Game.Lastoneout;component/Images/player1.png";
         }
 
         public string GetAiPlayerImage()
         {
-            return _aiPlayer == null ? null : _aiPlayer.ImageSource;
+            return _aiPlayer == null ? "/Game.Lastoneout;component/Images/player2.png" : _aiPlayer.ImageSource;
         }
 
         public string GetAiPlayerMessage()
