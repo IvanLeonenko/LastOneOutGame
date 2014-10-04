@@ -14,26 +14,38 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="140"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF6F69">Please input names</TextBlock>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Foreground="#FF6F69">Player #1:</TextBlock>
-            <TextBox x:Name="Player1Name" Width="120" Height="30" FontSize="20" Margin="10, 0,0,0"  Text="{Binding Player1, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding IsAiPlayerGame, Converter={StaticResource BoolToVisInverted}}">
-            <TextBlock Foreground="#FF6F69">Player #2:</TextBlock>
-            <TextBox  Width="120" Margin="10, 0,0,0" x:Name="Player2Name" Height="30" FontSize="20" Text="{Binding Player2, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Visibility="{Binding IsAiPlayerGame, Converter={StaticResource BoolToVis}}">
-            <TextBlock Foreground="#FF6F69">Player #2:</TextBlock>
-            <ComboBox SelectedItem="{Binding SelectedAiPlayer}" ItemsSource="{Binding AiPlayersValues}"></ComboBox>
-        </StackPanel>
-        <Button Grid.Row="3" Width="160" Height="40" Style="{StaticResource Button1Style}" Content="Start" Cursor="Hand" Command="{Binding StartCommand}"></Button>
-        <Button Grid.Row="4" Width="160" Height="40" Style="{StaticResource Button1Style}" Content="Back" Cursor="Hand" Command="{Binding PvpToMainCommand}"></Button>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="#FF6F69" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left">Player #1:</TextBlock>
+            <TextBox Grid.Column="1" Foreground="#FF6F69"  Cursor="Hand" x:Name="Player1Name" Width="140" Height="30" FontSize="20" Margin="10, 0,10,0"  Text="{Binding Player1, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Visibility="{Binding IsAiPlayerGame, Converter={StaticResource BoolToVisInverted}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="#FF6F69" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left">Player #2:</TextBlock>
+            <TextBox Grid.Column="1" Foreground="#FF6F69"  Cursor="Hand" Width="140" Margin="10, 0,10,0" x:Name="Player2Name" Height="30" FontSize="20" Text="{Binding Player2, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Visibility="{Binding IsAiPlayerGame, Converter={StaticResource BoolToVis}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="#FF6F69" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left">Player #2:</TextBlock>
+            <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedAiPlayer}" Cursor="Hand"  Margin="10, 0, 10, 0" Width="140" FontSize="20" Foreground="#FF6F69" ItemsSource="{Binding AiPlayersValues}"></ComboBox>
+        </Grid>
+        <Button Grid.Row="3" Width="220" Height="40" Style="{StaticResource Button1Style}" Content="Start" Command="{Binding StartCommand}"></Button>
+        <Button Grid.Row="4" Width="220" Height="40" Style="{StaticResource Button1Style}" Content="Back" Command="{Binding PvpToMainCommand}"></Button>
     </Grid>
 </UserControl>
