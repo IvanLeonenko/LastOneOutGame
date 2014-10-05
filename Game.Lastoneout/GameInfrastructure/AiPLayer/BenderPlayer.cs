@@ -3,7 +3,7 @@ using Game.Common.Helpers;
 
 namespace Game.Lastoneout.GameInfrastructure.AiPLayer
 {
-    class BenderPlayer : IAiPlayer
+    public class BenderPlayer : IAiPlayer
     {
         public string Name { get { return "Bender"; } }
         public string ImageSource { get { return "/Game.Lastoneout;component/Images/bender.png"; } }

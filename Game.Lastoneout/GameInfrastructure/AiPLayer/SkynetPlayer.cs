@@ -3,7 +3,7 @@ using Game.Common.Helpers;
 
 namespace Game.Lastoneout.GameInfrastructure.AiPLayer
 {
-    class SkynetPlayer : IAiPlayer
+    public class SkynetPlayer : IAiPlayer
     {
         public string Name { get { return "Skynet"; } }
         public string ImageSource { get { return "/Game.Lastoneout;component/Images/skynet.png"; } }

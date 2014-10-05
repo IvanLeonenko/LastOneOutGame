@@ -3,7 +3,7 @@ using Game.Common.Helpers;
 
 namespace Game.Lastoneout.GameInfrastructure.AiPLayer
 {
-    class R2D2Player : IAiPlayer
+    public class R2D2Player : IAiPlayer
     {
         public string Name { get { return "R2D2"; } }
         public string ImageSource { get { return "/Game.Lastoneout;component/Images/r2d2.png"; } }

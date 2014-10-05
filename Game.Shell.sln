@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Lastoneout", "Game.Las
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Common", "Game.Common\Game.Common.csproj", "{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Lastoneout.Tests", "Game.Lastoneout.Tests\Game.Lastoneout.Tests.csproj", "{99F22C48-F01D-4CB9-96F5-9347E6099AEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB364EA8-2B13-4C07-8CC5-0EA88AE099D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99F22C48-F01D-4CB9-96F5-9347E6099AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99F22C48-F01D-4CB9-96F5-9347E6099AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99F22C48-F01D-4CB9-96F5-9347E6099AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99F22C48-F01D-4CB9-96F5-9347E6099AEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
